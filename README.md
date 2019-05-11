@@ -9,13 +9,16 @@ node liri.js spotify-this-song "your search term"
 
 node liri.js concert-this "your search term"
 
+![search cor concerts](https://i.imgur.com/4Q62GKN.png)
+
 node liri.js movie-this "your search term"
+
+![Search for movie](https://i.imgur.com/BJLTqBb.png)
 
 
 node liri.js do-what-it-says
+![search from text file](https://i.imgur.com/GcJqODd.png)
 
 
 
 
-
-https://i.imgur.com/Yf4Me0d.png
