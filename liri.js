@@ -1,15 +1,35 @@
 require("dotenv").config(); 
+var fs = require("fs");
  var keys = require("./key.js");
  var Spotify = require('node-spotify-api');
  var spotify = new Spotify(keys.spotify);
  var axios = require("axios");
  var term = process.argv.slice(3).join(" ");
+ var moment =require("moment");
 
  function bandInfo(response) {
-  console.log("\nName of Venue: " +  response.venue.name + "\nLocation: " + response.venue.city + "," + response.venue.region) 
+
+  // moment(response.datetime).format("L");
+  
+  console.log("\nName of Venue: " +  response.venue.name + "\nLocation: " + response.venue.city + "," + response.venue.region +
+  
+   "\nDate: " + moment(response.datetime).format("L") ) 
 
 
   }
+
+  
+
+  function trackInfo(response) {
+
+    // moment(response.datetime).format("L");
+    
+    console.log("\nName of artist: " + response.album.artists.map(function(artists){return artists.name;}) + "\nName of song: " +
+    
+    response.name +  "\nAlbum name: " +response.album.name + "\nPreview link: " + response.preview_url) 
+  
+  
+    }
 
 
  if (process.argv[2] === "concert-this") {
@@ -31,7 +51,7 @@ require("dotenv").config();
   spotify
 .search({ type: 'track', query: term })
 .then(function(response) {
-  console.log(response);
+  response.tracks.items.map(trackInfo)
 })
 .catch(function(err) {
   console.log(err);
@@ -54,7 +74,27 @@ function(response) {
 });
 
 }
-if (process.argv[2] === "do-what-it-says") {};
+if (process.argv[2] === "do-what-it-says") {
+
+  fs.readFile("random.txt", "utf8", function(error, data) {
+    if (error) {
+      return console.log(error);
+    }
+
+    var dataArr = data.split(",");
+    console.log(dataArr);
+
+    spotify
+    .search({ type: 'track', query: dataArr[1] })
+    .then(function(response) {
+      response.tracks.items.map(trackInfo)
+    })
+    .catch(function(err) {
+      console.log(err);
+    })
+  
+  });
+};
 
 
 
