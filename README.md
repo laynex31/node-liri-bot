@@ -1,1 +1,4 @@
 # node-liri-bot
+
+
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
